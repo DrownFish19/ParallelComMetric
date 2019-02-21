@@ -14,9 +14,9 @@
 #include <cstdio>
 #include <cmath>
 #include <tr1/unordered_set>
-// #include "rdtsc.h"
-#include "mm.c"
 #include <mpi.h>
+// #include "rdtsc.h"
+#include "mm.h"
 
 // #define MPI_DEBUG
 

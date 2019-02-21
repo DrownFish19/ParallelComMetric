@@ -11,111 +11,37 @@
 #include "PthreadMetric.h"
 
 template<class T>
-PthreadMetric<T>::PthreadMetric() {
-	this->numThreads = 1;
-	this->isUnweighted = true;
-	this->isUndirected = true;
-
-	this->networkFile = "";
-	this->realCommunityFile = "";
-	this->disCommunityFile = "";
-
-	this->numNodes = 0;
-	this->totalWeight = 0;
-	this->modularity = 0;
-	this->Qds = 0;
-	this->intraEdges = 0;
-	this->intraDensity = 0;
-	this->contraction = 0;
-	this->interEdges = 0;
-	this->expansion = 0;
-	this->conductance = 0;
-	this->xentropy = 0;
-	this->yentropy = 0;
-	this->VI = 0;
-	this->NMI = 0;
-	this->fMeasure = 0;
-	this->NVD = 0;
-	this->a11 = 0;
-	this->a00 = 0;
-	this->a10 = 0;
-	this->a01 = 0;
-	this->RI = 0;
-	this->ARI = 0;
-	this->JI = 0;
-}
+PthreadMetric<T>::PthreadMetric(): numThreads(1), isUnweighted(true), isUndirected(true)
+	, networkFile(""), realCommunityFile(""), disCommunityFile("")
+	, network(), inNet(), realVecCommunities(), disVecCommunities()
+	, realMapCommunities(), disMapCommunities()
+	, numNodes(0), totalWeight(0), modularity(0), Qds(0), intraEdges(0), intraDensity(0)
+	, contraction(0), interEdges(0), expansion(0), conductance(0), xentropy(0)
+	, yentropy(0), VI(0), NMI(0), fMeasure(0), NVD(0)
+	, a11(0), a00(0), a10(0), a01(0), RI(0), ARI(0), JI(0) {}
 
 template<class T>
-PthreadMetric<T>::PthreadMetric(int numThreads, string networkFile,
-		bool isUnweighted, bool isUndirected, string disCommunityFile) {
-	this->numThreads = numThreads;
-	this->isUnweighted = isUnweighted;
-	this->isUndirected = isUndirected;
-
-	this->numNodes = 0;
-	this->totalWeight = 0;
-	this->modularity = 0;
-	this->Qds = 0;
-	this->intraEdges = 0;
-	this->intraDensity = 0;
-	this->contraction = 0;
-	this->interEdges = 0;
-	this->expansion = 0;
-	this->conductance = 0;
-	this->xentropy = 0;
-	this->yentropy = 0;
-	this->VI = 0;
-	this->NMI = 0;
-	this->fMeasure = 0;
-	this->NVD = 0;
-	this->a11 = 0;
-	this->a00 = 0;
-	this->a10 = 0;
-	this->a01 = 0;
-	this->RI = 0;
-	this->ARI = 0;
-	this->JI = 0;
-
-	this->networkFile = networkFile;
-	this->realCommunityFile = "";
-	this->disCommunityFile = disCommunityFile;
-}
+PthreadMetric<T>::PthreadMetric(int numThreads, string networkFile
+	, bool isUnweighted, bool isUndirected, string disCommunityFile)
+	: numThreads(numThreads), isUnweighted(isUnweighted), isUndirected(isUndirected)
+	, networkFile(networkFile), realCommunityFile(""), disCommunityFile(disCommunityFile)
+	, network(), inNet(), realVecCommunities(), disVecCommunities()
+	, realMapCommunities(), disMapCommunities()
+	, numNodes(0), totalWeight(0), modularity(0), Qds(0), intraEdges(0), intraDensity(0)
+	, contraction(0), interEdges(0), expansion(0), conductance(0), xentropy(0)
+	, yentropy(0), VI(0), NMI(0), fMeasure(0), NVD(0)
+	, a11(0), a00(0), a10(0), a01(0), RI(0), ARI(0), JI(0)  {}
 
 template<class T>
-PthreadMetric<T>::PthreadMetric(int numThreads, string realCommunityFile,
-		string disCommunityFile) {
-	this->numThreads = numThreads;
-	this->isUnweighted = true;
-	this->isUndirected = true;
-
-	this->numNodes = 0;
-	this->totalWeight = 0;
-	this->modularity = 0;
-	this->Qds = 0;
-	this->intraEdges = 0;
-	this->intraDensity = 0;
-	this->contraction = 0;
-	this->interEdges = 0;
-	this->expansion = 0;
-	this->conductance = 0;
-	this->xentropy = 0;
-	this->yentropy = 0;
-	this->VI = 0;
-	this->NMI = 0;
-	this->fMeasure = 0;
-	this->NVD = 0;
-	this->a11 = 0;
-	this->a00 = 0;
-	this->a10 = 0;
-	this->a01 = 0;
-	this->RI = 0;
-	this->ARI = 0;
-	this->JI = 0;
-
-	this->networkFile = "";
-	this->realCommunityFile = realCommunityFile;
-	this->disCommunityFile = disCommunityFile;
-}
+PthreadMetric<T>::PthreadMetric(int numThreads, string realCommunityFile, string disCommunityFile)
+	: numThreads(numThreads), isUnweighted(true), isUndirected(true)
+	, networkFile(""), realCommunityFile(realCommunityFile), disCommunityFile(disCommunityFile)
+	, network(), inNet(), realVecCommunities(), disVecCommunities()
+	, realMapCommunities(), disMapCommunities()
+	, numNodes(0), totalWeight(0), modularity(0), Qds(0), intraEdges(0), intraDensity(0)
+	, contraction(0), interEdges(0), expansion(0), conductance(0), xentropy(0)
+	, yentropy(0), VI(0), NMI(0), fMeasure(0), NVD(0)
+	, a11(0), a00(0), a10(0), a01(0), RI(0), ARI(0), JI(0)  {}
 
 template<class T>
 double PthreadMetric<T>::getModularity() {
@@ -400,7 +326,7 @@ double PthreadMetric<T>::computeMetricWithoutGroundTruth() {
 	void *thread_status = NULL;
 	int returnCode;
 
-	for (int i = 0; i < this->numThreads; ++i) {
+	for (unsigned i = 0; i < this->numThreads; ++i) {
 		thread_args[i].threadId = i;
 		thread_args[i].classPointer = this;
 		returnCode = pthread_create(&subThreads[i], &attr,
@@ -415,7 +341,7 @@ double PthreadMetric<T>::computeMetricWithoutGroundTruth() {
 	}
 
 	/* Wait until the threads finish their task */
-	for (int i = 0; i < this->numThreads; ++i) {
+	for (unsigned i = 0; i < this->numThreads; ++i) {
 		returnCode = pthread_join(subThreads[i], &thread_status);
 
 		// 0 means success, other values mean failure
@@ -497,7 +423,7 @@ void* PthreadMetric<T>::subInfoEntropyMetricCalculation(
 						disCommunity);
 
 				// VI and NMI
-				if (nij != 0) {
+				if (nij) {
 					double tmpVI = nij * log2((nij * nij) / (ni * nj));
 					threadVI += tmpVI;
 					double tmpNMI = (nij / this->numNodes)
@@ -560,7 +486,7 @@ double PthreadMetric<T>::computeInfoEntropyMetric() {
 	void *thread_status = NULL;
 	int returnCode;
 
-	for (int i = 0; i < this->numThreads; ++i) {
+	for (unsigned i = 0; i < this->numThreads; ++i) {
 		thread_args[i].threadId = i;
 		thread_args[i].classPointer = this;
 		returnCode = pthread_create(&subThreads[i], &attr,
@@ -574,7 +500,7 @@ double PthreadMetric<T>::computeInfoEntropyMetric() {
 	}
 
 	/* Wait until the threads finish their task */
-	for (int i = 0; i < this->numThreads; ++i) {
+	for (unsigned i = 0; i < this->numThreads; ++i) {
 		returnCode = pthread_join(subThreads[i], &thread_status);
 
 		// 0 means success, other values mean failure
@@ -710,7 +636,7 @@ double PthreadMetric<T>::computeClusterMatchingMetric() {
 	void *thread_status = NULL;
 	int returnCode;
 
-	for (int i = 0; i < this->numThreads; ++i) {
+	for (unsigned i = 0; i < this->numThreads; ++i) {
 		thread_args[i].threadId = i;
 		thread_args[i].classPointer = this;
 		returnCode = pthread_create(&subThreads[i], &attr,
@@ -725,7 +651,7 @@ double PthreadMetric<T>::computeClusterMatchingMetric() {
 	}
 
 	/* Wait until the threads finish their task */
-	for (int i = 0; i < this->numThreads; ++i) {
+	for (unsigned i = 0; i < this->numThreads; ++i) {
 		returnCode = pthread_join(subThreads[i], &thread_status);
 
 		// 0 means success, other values mean failure
@@ -851,7 +777,7 @@ double PthreadMetric<T>::computeIndexMetric() {
 	void *thread_status = NULL;
 	int returnCode;
 
-	for (int i = 0; i < this->numThreads; ++i) {
+	for (unsigned i = 0; i < this->numThreads; ++i) {
 		thread_args[i].threadId = i;
 		thread_args[i].classPointer = this;
 		returnCode = pthread_create(&subThreads[i], &attr, indexMetricAdaptor,
@@ -865,7 +791,7 @@ double PthreadMetric<T>::computeIndexMetric() {
 	}
 
 	/* Wait until the threads finish their task */
-	for (int i = 0; i < this->numThreads; ++i) {
+	for (unsigned i = 0; i < this->numThreads; ++i) {
 		returnCode = pthread_join(subThreads[i], &thread_status);
 
 		// 0 means success, other values mean failure

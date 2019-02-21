@@ -14,7 +14,6 @@
 #include <tr1/unordered_map>
 #include <pthread.h>
 // #include "rdtsc.h"
-#include "mm.c"
 #include "PthreadMetric.cpp"
 
 // #define MAIN_DEBUG

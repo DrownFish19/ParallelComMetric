@@ -17,8 +17,8 @@
 #include <tr1/unordered_set>
 #include <tr1/unordered_map>
 // #include "rdtsc.h"
-#include "mm.c"
-#include "Reader.cpp"
+#include "Reader.hpp"
+#include "mm.h"
 
 using namespace std;
 using namespace std::tr1;
@@ -36,14 +36,14 @@ class PthreadMetric {
 private:
 	unsigned int numThreads;
 
+	// Network properties
+	bool isUnweighted;
+	bool isUndirected;
+
 	// Network and community file name
 	string networkFile;
 	string realCommunityFile;
 	string disCommunityFile;
-
-	// Network properties
-	bool isUnweighted;
-	bool isUndirected;
 
 	// Network and community containers
 	unordered_map<T, unordered_map<T, double> > network;

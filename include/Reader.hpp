@@ -1,12 +1,12 @@
 /*
- * Reader.cpp
+ * Reader implementation
  *
  *  Created on: Apr 15, 2014
  *      Author: Miles
  */
 
-#ifndef READER_CPP
-#define READER_CPP
+#ifndef READER_HPP
+#define READER_HPP
 
 #include "Reader.h"
 
@@ -16,9 +16,7 @@ Reader<T>::Reader(void) {
 }
 
 template<class T>
-Reader<T>::Reader(string fileName) {
-	this->fileName = fileName;
-}
+Reader<T>::Reader(string fileName): fileName(fileName) {}
 
 template<class T>
 void Reader<T>::setFileName(string fileName) {
@@ -638,4 +636,4 @@ template<class T>
 Reader<T>::~Reader(void) {
 }
 
-#endif
+#endif  // READER_HPP

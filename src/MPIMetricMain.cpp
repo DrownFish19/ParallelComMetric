@@ -14,7 +14,6 @@
 #include <tr1/unordered_map>
 #include <mpi.h>
 // #include "rdtsc.h"
-#include "mm.c"
 #include "Reader.cpp"
 #include "MPIMetric.cpp"
 
