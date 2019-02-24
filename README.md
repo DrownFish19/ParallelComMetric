@@ -2,6 +2,10 @@
 A parallel toolkit, implemented with Pthreads (or MPI), to calculate the community quality metrics with and without ground truth community structure.  
 The original version is extended with the GNU-style arguments parsing, selective evaluation of the quality measures and the standard Makefile by Artem Lutov <artem@exascale.info>. The extension is licensed under the [Apache License v.2](https://www.apache.org/licenses/LICENSE-2.0), about the license of the original code please ask the initial authors.
 
+Evaluating quality metrics:
+- extrinsic quality metrics (accuracy): F1-measure, NVD; VI, NMI; JI, RI, ARI.
+- intrinsic quality metrics (statistical properties): Conductance, Q, Qds, intraEdges, interEdges, intraDensity, contraction, expansion.
+
 Authors: Mingming Chen <mileschen2008@gmail.com> and Sisi Liu <liusisiapply@gmail.com>.  
 Collaborator: Boleslaw K. Szymanski <szymab@rpi.edu>.  
 Please email comments and suggestions to Mingming Chen <mileschen2008@gmail.com> and Sisi Liu <liusisiapply@gmail.com>.
