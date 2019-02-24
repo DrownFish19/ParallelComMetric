@@ -18,16 +18,16 @@ Paper: Mingming Chen, Sisi Liu, and Boleslaw Szymanski, \"Parallel Toolkit for
 
 usage "pcomet [OPTIONS] ground-truth|ipnut-network clustering
 
-  ground-truth  - ground-truth clustering (communities) for the extrinsic metrics
- evaluation. The clusterins are specified in the NCL format, where each line consists
+  ground-truth  - ground-truth clustering (communities) for the extrinsic metrics\
+ evaluation. The clusterins are specified in the NCL format, where each line consists\
  of the member node ids of the respective cluster (community).
-  ipnut-network  - input network for the intrinsic metrics evaluation. The input
- network is specified in the NSL format, where each line describes the respective
+  ipnut-network  - input network for the intrinsic metrics evaluation. The input\
+ network is specified in the NSL format, where each line describes the respective\
  link: <src_id> <dst_id> [<weight>].
-  clustering  - input file, collection of the clusters (detected communities) to
- be evaluated. in the NCL format, where each line list member node ids of the
+  clustering  - input file, collection of the clusters (detected communities) to\
+ be evaluated. in the NCL format, where each line list member node ids of the\
  respective cluster (community).
-  
+
 Examples:
   $ ./pcomet -n 4 -ef1m ./dataset/football_true_community.groups ./dataset/football_detected_community.groups
   $ ./pcomet -n 4 -i ./dataset/football_network.pairs ./dataset/football_detected_community.groups
