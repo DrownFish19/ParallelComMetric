@@ -29,7 +29,7 @@ usage "pcomet [OPTIONS] ground-truth|ipnut-network clustering
  respective cluster (community).
   
 Examples:
-  $ ./pcomet -n 4 -ef1m ./dataset/football_detected_community.groups ./dataset/football_true_community.groups
+  $ ./pcomet -n 4 -ef1m ./dataset/football_true_community.groups ./dataset/football_detected_community.groups
   $ ./pcomet -n 4 -i ./dataset/football_network.pairs ./dataset/football_detected_community.groups
 "
 
