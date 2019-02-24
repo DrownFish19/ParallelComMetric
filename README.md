@@ -61,6 +61,15 @@ input network (graph).
   -w, --weighted          the input network is weighted  (default=off)
   -d, --directed          the input network is directed  (default=off)
   ```
+Example of the output:
+```
+$ ./bin/Release/pcomet -n 4 -e dataset/football_true_community.groups dataset/football_detected_community.groups 
+Executing in 4 threads...
+Entropy metric timings: 0.000577824;  VI: 0.536747, NMI: 0.924195
+Cluster metric timings: 0.000714213;  F1-measure: 0.914482, NVD: 0.073913
+Index metric timings: 0.000552153;  RI: 0.984744, ARI: 0.89665, JI: 0.826389
+```
+
 > The `MPI-based` implementation has another (original) execution parameters and output format.
 > 
 > **Parameters** for calculating the metrics with ground truth community structure:
