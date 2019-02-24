@@ -45,7 +45,8 @@ void Reader<T>::getRankCommunity(vector<unordered_set<T> >& rankCommunities,
 	int count = 0;
 	while (communityFp.good()) {
 		getline(communityFp, lineStr);
-		if (lineStr.empty()) {
+		// Skip empty lines and comments
+		if (lineStr.empty() || lineStr[0] == '#') {
 			//cout << "linStr is empty" << endl;
 			continue;
 		}
@@ -83,7 +84,8 @@ void Reader<T>::getRankMapCommunity(unordered_map<T, int>& rankMapCommunities,
 	// Read until all the lines are read
 	while (communityFp.good()) {
 		getline(communityFp, lineStr);
-		if (lineStr.empty()) {
+		// Skip empty lines and comments
+		if (lineStr.empty() || lineStr[0] == '#') {
 			//cout << "linStr is empty" << endl;
 			continue;
 		}
@@ -121,7 +123,8 @@ void Reader<T>::getRankMapCommunity(unordered_map<T, int>& rankMapCommunities,
 	// Read until all the lines are read
 	while (communityFp.good()) {
 		getline(communityFp, lineStr);
-		if (lineStr.empty()) {
+		// Skip empty lines and comments
+		if (lineStr.empty() || lineStr[0] == '#') {
 			//cout << "linStr is empty" << endl;
 			continue;
 		}
@@ -164,7 +167,8 @@ void Reader<T>::getDetectedMapCommunity(
 	// Read until all the lines are read
 	while (communityFp.good()) {
 		getline(communityFp, lineStr);
-		if (lineStr.empty()) {
+		// Skip empty lines and comments
+		if (lineStr.empty() || lineStr[0] == '#') {
 			//cout << "linStr is empty" << endl;
 			continue;
 		}
@@ -214,7 +218,8 @@ double Reader<T>::getCommunityNetwork(
 	typename unordered_map<T, double>::iterator nbIter;
 	while (networkFp.good()) {
 		getline(networkFp, lineStr);
-		if (lineStr.empty()) {
+		// Skip empty lines and comments
+		if (lineStr.empty() || lineStr[0] == '#') {
 			continue;
 		}
 
@@ -301,7 +306,8 @@ double Reader<T>::getCommunityReversedNetwork(
 	typename unordered_map<T, double>::iterator nbIter;
 	while (networkFp.good()) {
 		getline(networkFp, lineStr);
-		if (lineStr.empty()) {
+		// Skip empty lines and comments
+		if (lineStr.empty() || lineStr[0] == '#') {
 			continue;
 		}
 
@@ -375,7 +381,8 @@ void Reader<T>::getOutCommunityNodeInfo(unordered_map<int, int>& communitySizes,
 	// Read until all the lines are read
 	while (communityFp.good()) {
 		getline(communityFp, lineStr);
-		if (lineStr.empty()) {
+		// Skip empty lines and comments
+		if (lineStr.empty() || lineStr[0] == '#') {
 			//cout << "linStr is empty" << endl;
 			continue;
 		}
@@ -441,7 +448,8 @@ double Reader<T>::getNetwork(bool isUnweighted, bool isUndirected,
 	typename unordered_map<T, double>::iterator nbIter;
 	while (networkFp.good()) {
 		getline(networkFp, lineStr);
-		if (lineStr.empty()) {
+		// Skip empty lines and comments
+		if (lineStr.empty() || lineStr[0] == '#') {
 			continue;
 		}
 
@@ -510,7 +518,8 @@ double Reader<T>::getReversedNetwork(bool isUnweighted, bool isUndirected,
 	typename unordered_map<T, double>::iterator nbIter;
 	while (networkFp.good()) {
 		getline(networkFp, lineStr);
-		if (lineStr.empty()) {
+		// Skip empty lines and comments
+		if (lineStr.empty() || lineStr[0] == '#') {
 			continue;
 		}
 
@@ -576,7 +585,8 @@ long Reader<T>::getCommunity(vector<unordered_set<T> >& communities) {
 	int count = 0;
 	while (communityFp.good()) {
 		getline(communityFp, lineStr);
-		if (lineStr.empty()) {
+		// Skip empty lines and comments
+		if (lineStr.empty() || lineStr[0] == '#') {
 			//cout << "linStr is empty" << endl;
 			continue;
 		}
@@ -613,7 +623,8 @@ long Reader<T>::getMapCommunity(unordered_map<T, int>& communities) {
 	// Read until all the lines are read
 	while (communityFp.good()) {
 		getline(communityFp, lineStr);
-		if (lineStr.empty()) {
+		// Skip empty lines and comments
+		if (lineStr.empty() || lineStr[0] == '#') {
 			//cout << "linStr is empty" << endl;
 			continue;
 		}

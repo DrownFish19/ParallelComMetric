@@ -19,6 +19,7 @@
 // #include "rdtsc.h"
 #include "Reader.hpp"
 #include "mm.h"
+#include "cmdline.h"
 
 using namespace std;
 using namespace std::tr1;
@@ -88,6 +89,10 @@ private:
 	double ARI;
 	double JI;
 
+	// What metrics should be evaluated
+	enum_extrinsic  emetrics;
+	enum_intrinsic  imetrics;
+
 	int getIntersectionNum(unordered_set<T>& scomm, unordered_set<T>& gcomm);
 
 	static void *metricWithoutGroundTruthAdaptor(void *arg);
@@ -104,9 +109,9 @@ private:
 public:
 	PthreadMetric();
 	PthreadMetric(int numThreads, string networkFile, bool isUnweighted,
-			bool isUndirected, string disCommunityFile);
+			bool isUndirected, string disCommunityFile, enum_intrinsic imetrics=intrinsic_arg_all);
 	PthreadMetric(int numThreads, string realCommunityFile,
-			string disCommunityFile);
+			string disCommunityFile, enum_extrinsic emetrics=extrinsic_arg_all);
 
 	double getModularity();
 	double getQds();
@@ -125,10 +130,13 @@ public:
 	double getARI();
 	double getJI();
 
-	double computeMetricWithoutGroundTruth();
-	double computeInfoEntropyMetric();
-	double computeClusterMatchingMetric();
-	double computeIndexMetric();
+	bool isF1m() const  { return emetrics == extrinsic_arg_all || emetrics == extrinsic_arg_f1m; }
+	bool isNVD() const  { return emetrics == extrinsic_arg_all || emetrics == extrinsic_arg_nvd; }
+
+	double computeMetricWithoutGroundTruth(enum_intrinsic metrics=intrinsic_arg_all);
+	double computeInfoEntropyMetric(enum_extrinsic metrics=extrinsic_arg_all);
+	double computeClusterMatchingMetric(enum_extrinsic metrics=extrinsic_arg_all);
+	double computeIndexMetric(enum_extrinsic metrics=extrinsic_arg_all);
 
 	~PthreadMetric();
 };

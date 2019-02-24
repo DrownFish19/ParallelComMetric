@@ -49,10 +49,15 @@
 			<Add option="-std=c++14" />
 			<Add option="-fexceptions" />
 			<Add directory="include" />
+			<Add directory="autogen" />
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
 		</Linker>
+		<Unit filename="autogen/cmdline.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="autogen/cmdline.h" />
 		<Unit filename="include/PthreadMetric.h" />
 		<Unit filename="include/Reader.h" />
 		<Unit filename="include/Reader.hpp" />

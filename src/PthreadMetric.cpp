@@ -8,6 +8,7 @@
 #ifndef PTHREADMETRIC_CPP_
 #define PTHREADMETRIC_CPP_
 
+#include <cmath>
 #include "PthreadMetric.h"
 
 template<class T>
@@ -18,11 +19,12 @@ PthreadMetric<T>::PthreadMetric(): numThreads(1), isUnweighted(true), isUndirect
 	, numNodes(0), totalWeight(0), modularity(0), Qds(0), intraEdges(0), intraDensity(0)
 	, contraction(0), interEdges(0), expansion(0), conductance(0), xentropy(0)
 	, yentropy(0), VI(0), NMI(0), fMeasure(0), NVD(0)
-	, a11(0), a00(0), a10(0), a01(0), RI(0), ARI(0), JI(0) {}
+	, a11(0), a00(0), a10(0), a01(0), RI(0), ARI(0), JI(0)
+	, emetrics(extrinsic__NULL), imetrics(intrinsic__NULL) {}
 
 template<class T>
 PthreadMetric<T>::PthreadMetric(int numThreads, string networkFile
-	, bool isUnweighted, bool isUndirected, string disCommunityFile)
+	, bool isUnweighted, bool isUndirected, string disCommunityFile, enum_intrinsic imetrics)
 	: numThreads(numThreads), isUnweighted(isUnweighted), isUndirected(isUndirected)
 	, networkFile(networkFile), realCommunityFile(""), disCommunityFile(disCommunityFile)
 	, network(), inNet(), realVecCommunities(), disVecCommunities()
@@ -30,10 +32,12 @@ PthreadMetric<T>::PthreadMetric(int numThreads, string networkFile
 	, numNodes(0), totalWeight(0), modularity(0), Qds(0), intraEdges(0), intraDensity(0)
 	, contraction(0), interEdges(0), expansion(0), conductance(0), xentropy(0)
 	, yentropy(0), VI(0), NMI(0), fMeasure(0), NVD(0)
-	, a11(0), a00(0), a10(0), a01(0), RI(0), ARI(0), JI(0)  {}
+	, a11(0), a00(0), a10(0), a01(0), RI(0), ARI(0), JI(0)
+	, emetrics(extrinsic__NULL), imetrics(imetrics) {}
 
 template<class T>
-PthreadMetric<T>::PthreadMetric(int numThreads, string realCommunityFile, string disCommunityFile)
+PthreadMetric<T>::PthreadMetric(int numThreads, string realCommunityFile, string disCommunityFile
+	, enum_extrinsic emetrics)
 	: numThreads(numThreads), isUnweighted(true), isUndirected(true)
 	, networkFile(""), realCommunityFile(realCommunityFile), disCommunityFile(disCommunityFile)
 	, network(), inNet(), realVecCommunities(), disVecCommunities()
@@ -41,7 +45,8 @@ PthreadMetric<T>::PthreadMetric(int numThreads, string realCommunityFile, string
 	, numNodes(0), totalWeight(0), modularity(0), Qds(0), intraEdges(0), intraDensity(0)
 	, contraction(0), interEdges(0), expansion(0), conductance(0), xentropy(0)
 	, yentropy(0), VI(0), NMI(0), fMeasure(0), NVD(0)
-	, a11(0), a00(0), a10(0), a01(0), RI(0), ARI(0), JI(0)  {}
+	, a11(0), a00(0), a10(0), a01(0), RI(0), ARI(0), JI(0)
+	, emetrics(emetrics), imetrics(intrinsic__NULL) {}
 
 template<class T>
 double PthreadMetric<T>::getModularity() {
@@ -294,7 +299,7 @@ void* PthreadMetric<T>::subWithoutGroundTruthMetricCalculation(
 }
 
 template<class T>
-double PthreadMetric<T>::computeMetricWithoutGroundTruth() {
+double PthreadMetric<T>::computeMetricWithoutGroundTruth(enum_intrinsic metrics) {
 	// First, clear it in case that it has content.
 	this->network.clear();
 	this->inNet.clear();
@@ -462,7 +467,7 @@ void* PthreadMetric<T>::subInfoEntropyMetricCalculation(
 }
 
 template<class T>
-double PthreadMetric<T>::computeInfoEntropyMetric() {
+double PthreadMetric<T>::computeInfoEntropyMetric(enum_extrinsic metrics) {
 	// First, clear it in case that it has content.
 	this->realVecCommunities.clear();
 	this->disVecCommunities.clear();
@@ -548,6 +553,7 @@ void* PthreadMetric<T>::subClusterMatchingMetricCalculation(
 	int disComNum = this->disVecCommunities.size();
 	double threadFMeasure = 0;
 	double threadNVD = 0;
+	//const bool isF1m = arg->classPointer->isF1m();
 
 	// Calculate the first part of fMeasure and NVD of this thread
 	for (int i = 0; i < realComNum; ++i) {
@@ -579,25 +585,28 @@ void* PthreadMetric<T>::subClusterMatchingMetricCalculation(
 		} // end if
 	} // end for
 
-	// Calculate the second part of fMeasure and NVD of this thread
-	for (int i = 0; i < disComNum; ++i) {
-		if (i % this->numThreads == threadId) {
-			unordered_set<T> disCommunity = this->disVecCommunities[i];
-			double maxCommon = -1;
+	const bool isNVD = arg->classPointer->isNVD();
+	if(isNVD) {
+		// Calculate the second part of fMeasure and NVD of this thread
+		for (int i = 0; i < disComNum; ++i) {
+			if (i % this->numThreads == threadId) {
+				unordered_set<T> disCommunity = this->disVecCommunities[i];
+				double maxCommon = -1;
 
-			for (int j = 0; j < realComNum; ++j) {
-				unordered_set<T> realCommunity = this->realVecCommunities[j];
-				double nij = this->getIntersectionNum(disCommunity,
-						realCommunity);
+				for (int j = 0; j < realComNum; ++j) {
+					unordered_set<T> realCommunity = this->realVecCommunities[j];
+					double nij = this->getIntersectionNum(disCommunity,
+							realCommunity);
 
-				if (nij > maxCommon) {
-					maxCommon = nij;
+					if (nij > maxCommon) {
+						maxCommon = nij;
+					}
 				}
-			}
 
-			threadNVD += maxCommon;
-		} // end if
-	} // end for
+				threadNVD += maxCommon;
+			} // end if
+		} // end for
+	}
 
 	// Do not update the global variables in threads, must synchronization if doing so
 //	this->fMeasure += threadFMeasure;
@@ -605,14 +614,14 @@ void* PthreadMetric<T>::subClusterMatchingMetricCalculation(
 //	pthread_exit((void*) 0);
 
 	double* results = new double[2];
-	results[0] = threadFMeasure;
-	results[1] = threadNVD;
+	results[0] = threadFMeasure;  // arg->classPointer->isF1m() ? threadFMeasure : NAN;
+	results[1] = isNVD ? threadNVD : NAN;
 
 	return (void *) results;
 }
 
 template<class T>
-double PthreadMetric<T>::computeClusterMatchingMetric() {
+double PthreadMetric<T>::computeClusterMatchingMetric(enum_extrinsic metrics) {
 	// First, clear it in case that it has content.
 	this->realVecCommunities.clear();
 	this->disVecCommunities.clear();
@@ -753,7 +762,7 @@ void* PthreadMetric<T>::subIndexMetricCalculation(struct thread_arg<T> *arg) {
 }
 
 template<class T>
-double PthreadMetric<T>::computeIndexMetric() {
+double PthreadMetric<T>::computeIndexMetric(enum_extrinsic metrics) {
 	// First, clear it in case that it has content.
 	this->realMapCommunities.clear();
 	this->disMapCommunities.clear();
@@ -866,9 +875,7 @@ int PthreadMetric<T>::getIntersectionNum(unordered_set<T>& scomm,
 }
 
 template<class T>
-PthreadMetric<T>::~PthreadMetric() {
-
-}
+PthreadMetric<T>::~PthreadMetric() {}
 
 #endif /* PTHREADMETRIC_CPP_ */
 
