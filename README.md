@@ -1,13 +1,12 @@
 # ParallelComMetric
-Authors: Mingming Chen <mileschen2008@gmail.com> and Sisi Liu <liusisiapply@gmail.com>.  
-Collaborator: Boleslaw K. Szymanski <szymab@rpi.edu>.
-
 A parallel toolkit, implemented with Pthreads (or MPI), to calculate the community quality metrics with and without ground truth community structure.  
 The original version is extended with the GNU-style arguments parsing, selective evaluation of the quality measures and the standard Makefile by Artem Lutov <artem@exascale.info>. The extension is licensed under the [Apache License v.2](https://www.apache.org/licenses/LICENSE-2.0), about the license of the original code please ask the initial authors.
 
-Paper: `Mingming Chen, Sisi Liu, and Boleslaw Szymanski, “Parallel Toolkit for Measuring the Quality of Network Community Structure”, The First European Network Intelligence Conference (ENIC), Wroclaw, Poland, September, 2014, pp. 22-29.`
-
+Authors: Mingming Chen <mileschen2008@gmail.com> and Sisi Liu <liusisiapply@gmail.com>.  
+Collaborator: Boleslaw K. Szymanski <szymab@rpi.edu>.  
 Please email comments and suggestions to Mingming Chen <mileschen2008@gmail.com> and Sisi Liu <liusisiapply@gmail.com>.
+
+Paper: `Mingming Chen, Sisi Liu, and Boleslaw Szymanski, “Parallel Toolkit for Measuring the Quality of Network Community Structure”, The First European Network Intelligence Conference (ENIC), Wroclaw, Poland, September, 2014, pp. 22-29.`
 
 ## Content
 - [Usage](#usage)
@@ -92,5 +91,6 @@ Just `$ make` for the `Pthread`-based implementation or perform the custom compi
 - [GenConvNMI](https://github.com/eXascaleInfolab/GenConvNMI) - Overlapping NMI evaluation that is compatible with the original NMI and suitable for both overlapping and multi resolution (hierarchical) clustering evaluation.
 - [OvpNMI](https://github.com/eXascaleInfolab/OvpNMI) - Another method of the NMI evaluation for the overlapping clusters (communities) that is not compatible with the standard NMI value unlike GenConvNMI, but it is much faster than GenConvNMI.
 - [Clubmark](https://github.com/eXascaleInfolab/clubmark) - A parallel isolation framework for benchmarking and profiling clustering (community detection) algorithms considering overlaps (covers).
+- [CluSim](https://github.com/Hoosier-Clusters/clusim) - A Python module that evaluates various extrinsic quality metrics (accuracy) for non-overlapping (single membership) clusterings.
 - [resmerge](https://github.com/eXascaleInfolab/resmerge)  - Resolution levels clustering merger with filtering. Flattens hierarchy/list of multiple resolutions levels (clusterings) into the single flat clustering with clusters on various resolution levels synchronizing the node base.
 - [ExecTime](https://bitbucket.org/lumais/exectime/)  - A lightweight resource consumption profiler.
