@@ -107,7 +107,7 @@ int main(int argc, char **argv) {
 			cout << "Cluster metric timings: " << clusteringExeTime << ";  F1-measure: " << fMeasure << ", NVD: " << NVD << endl;
 		}
 
-		if(args_info.extrinsic_arg == extrinsic_arg_all) {
+		if(args_info.extrinsic_arg == extrinsic_arg_all || args_info.extrinsic_arg == extrinsic_arg_index) {
 			double indexExeCycle = pthreadMetric.computeIndexMetric();
 			double indexExeTime;
 			if (GANXIS_MACHINE) {

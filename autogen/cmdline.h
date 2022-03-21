@@ -34,7 +34,7 @@ extern "C" {
 #define CMDLINE_PARSER_VERSION "1.1"
 #endif
 
-enum enum_extrinsic { extrinsic__NULL = -1, extrinsic_arg_all = 0, extrinsic_arg_f1m, extrinsic_arg_nvd };
+enum enum_extrinsic { extrinsic__NULL = -1, extrinsic_arg_all = 0, extrinsic_arg_f1m, extrinsic_arg_nvd, extrinsic_arg_index};
 enum enum_intrinsic { intrinsic__NULL = -1, intrinsic_arg_all = 0 };
 
 /** @brief Where the command line options are stored */

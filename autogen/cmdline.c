@@ -64,7 +64,7 @@ cmdline_parser_internal (int argc, char **argv, struct gengetopt_args_info *args
 static int
 cmdline_parser_required2 (struct gengetopt_args_info *args_info, const char *prog_name, const char *additional_error);
 
-const char *cmdline_parser_extrinsic_values[] = {"all", "f1m", "nvd", 0}; /*< Possible values for extrinsic. */
+const char *cmdline_parser_extrinsic_values[] = {"all", "f1m", "nvd", "index", 0}; /*< Possible values for extrinsic. */
 const char *cmdline_parser_intrinsic_values[] = {"all", 0}; /*< Possible values for intrinsic. */
 
 static char *

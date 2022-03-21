@@ -132,6 +132,7 @@ public:
 
 	bool isF1m() const  { return emetrics == extrinsic_arg_all || emetrics == extrinsic_arg_f1m; }
 	bool isNVD() const  { return emetrics == extrinsic_arg_all || emetrics == extrinsic_arg_nvd; }
+        bool isIndex() const  { return emetrics == extrinsic_arg_all || emetrics == extrinsic_arg_index; }
 
 	double computeMetricWithoutGroundTruth(enum_intrinsic metrics=intrinsic_arg_all);
 	double computeInfoEntropyMetric(enum_extrinsic metrics=extrinsic_arg_all);
